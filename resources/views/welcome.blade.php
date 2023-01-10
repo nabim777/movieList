@@ -24,7 +24,6 @@
         align-items: center;
         background-position: center;
         background-size: cover
-
     }
 
     .fav-image p {
@@ -178,6 +177,14 @@
         opacity: 1;
     }
 
+    /* @media screen and (max-width: 900px) {
+        .fav-li {
+            width: 5em;
+            height: 11em;
+            margin: 2em;
+        }
+    } */
+
 </style>
 {{-- {{ $topMembers[0] }} --}}
 {{-- {{ $topTitles[0][0]->members }} --}}
@@ -199,144 +206,141 @@ $first=true;
             <div class="row ">
                 <strong>Suggestions</strong>
                 <hr>
-                @if(count($suggestedTitles)<=0 || $suggestedTitles==null) No Titles @else 
-                    <ul id="" class="col text-start fav-ul" style=" white-space: nowrap;overflow-x:auto;scroll-snap-type:inline mandatory;,scroll-padding-inline:1rem;">
+                @if(count($suggestedTitles)<=0 || $suggestedTitles==null) No Titles @else <ul id="" class="col text-start fav-ul" style=" white-space: nowrap;overflow-x:auto;scroll-snap-type:inline mandatory;,scroll-padding-inline:1rem;">
 
-                        @foreach ($suggestedTitles as $title)
-                        <li class="fav-li" style="display: inline-block;scroll-snap-align:{{ $first?'start':'end'}}{{ $first=false; }};">
+                    @foreach ($suggestedTitles as $title)
+                    <li class="fav-li" style="display: inline-block;scroll-snap-align:{{ $first?'start':'end'}}{{ $first=false; }};">
 
-                            <a class="" href="{{ route('title',['title' => $title->title_id])}}">
-                                <div class="fav-image" style="background-image:url({{ $title->image }})">
+                        <a class="" href="{{ route('title',['title' => $title->title_id])}}">
+                            <div class="fav-image" style="background-image:url({{ $title->image }})">
 
-                                    <p class="text-wrap">
+                                <p class="text-wrap">
 
-                                        {{ $title->titlename }}
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        @endforeach
+                                    {{ $title->titlename }}
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    @endforeach
                     </ul>
+                    @endif
+            </div>
+            <hr>
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="text-start"> <strong>Reviews</strong> </h5>
+                    </div>
+                    <hr>
+                    <div class="col text-end">
+                        <a href="#"></a>
+                    </div>
+                </div>
+                @if(count($newReviews)<=0 ||$newReviews==null) No reviews @else @foreach ($newReviews as $review) <div class="row">
+                    <div class="col-md-auto">
+                        <a href="{{ route('title',['title'=>$review->title_id]) }}">
+                            <img class="img-fluid img-thumbnail" style="max-width: 70px" src="{{ $review->image }} " onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png';">
+                        </a>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm text-start"><a href="{{route('title',['title'=>$review->title_id]) }}">{{$review->titlename}}</a> </div>
+                            <div class="col-sm text-end">{{$review->created_at==null ? 'Na':\Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</div>
+                        </div>
+                        <div class="row text-start">
+                            <div class="post {{ $review->rw_type ? 'spoiler':'' }}">
+                                <p style="white-space: pre-line" class="content text-break"> {{ stripslashes($review->rw_content) }}</p>
+
+                                <a onclick="readMore(this)">Read More</a>
+                            </div>
+                            {{-- <p id="review">
+                                        {{ $review->rw_content }}
+
+                            </p>
+                            <a id="load" onclick="lodemore(this)">Load More</a> --}}
+                        </div>
+                        <div class="row text-start"><a href="{{ route('user',['user'=>$review->username]) }}">{{$review->username}}</a></div>
+                    </div>
+            </div>
+            <hr>
+            @endforeach
             @endif
         </div>
-        <hr>
-        <div class="container-xxl">
-            <div class="row">
-                <div class="col">
-                    <h5 class="text-start"> <strong>Reviews</strong> </h5>
-                </div>
-                <hr>
-                <div class="col text-end">
-                    <a href="#"></a>
-                </div>
-            </div>
-            @if(count($newReviews)<=0 ||$newReviews==null) No reviews @else @foreach ($newReviews as $review) <div class="row">
+
+    </div>
+    <div class="col-4 border-l-r-b">
+
+        @if (session()->has('userInfo'))
+        {{-- <div>userstats</div> --}}
+        @else
+        @endif
+        <div class="container myContainer" style="">
+            <div class="row titlE" style=""><strong>Top Titles</strong> </div>
+
+            @if(count($topTitles)<=0 ||$topTitles==null) No Titles @else @for($i=0; $i < count($topTitles); $i++) <div class="row">
                 <div class="col-md-auto">
-                    <a href="{{ route('title',['title'=>$review->title_id]) }}">
-                        <img class="img-fluid img-thumbnail" style="max-width: 70px" src="{{ $review->image }} " onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png';">
+                    <a href="{{ route('title',['title' => $topTitles[$i][0]->title_id]) }}">
+                        <img class="img-fluid img-thumbnail" style="max-width: 70px" src="{{ $topTitles[$i][0]->image }}" alt="img" onerror="this.onerror=null;this.src='{{URL::asset('/No-Image-Placeholder.svg.png')}}'">
                     </a>
                 </div>
                 <div class="col">
-                    <div class="row">
-                        <div class="col-sm text-start"><a href="{{route('title',['title'=>$review->title_id]) }}">{{$review->titlename}}</a> </div>
-                        <div class="col-sm text-end">{{$review->created_at==null ? 'Na':\Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</div>
+                    <div>
+                        <a href="{{ route('title',['title' => $topTitles[$i][0]->title_id]) }}">
+                            {{ $topTitles[$i][0]->titlename }}
+                        </a>
                     </div>
-                    <div class="row text-start">
-                        <div class="post {{ $review->rw_type ? 'spoiler':'' }}">
-                            <p style="white-space: pre-line" class="content text-break"> {{ stripslashes($review->rw_content) }}</p>
+                    <div><small>Aired: {{ $topTitles[$i][0]->startdate==null?"N/A":$topTitles[$i][0]->startdate }}</small></div>
 
-                            <a onclick="readMore(this)">Read More</a>
-                        </div>
-                        {{-- <p id="review">
-                                        {{ $review->rw_content }}
-
-                        </p>
-                        <a id="load" onclick="lodemore(this)">Load More</a> --}}
-                    </div>
-                    <div class="row text-start"><a href="{{ route('user',['user'=>$review->username]) }}">{{$review->username}}</a></div>
+                    <div><small>Members: {{ $topTitles[$i][0]->members }}</small></div>
+                    <div><small>Rating: {{ $topTitles[$i][0]->avrage_rating==null?"N/A":round($topTitles[$i][0]->avrage_rating,2) }}</small></div>
                 </div>
         </div>
+        @if(!$i==count($topTitles)-1)
+
         <hr>
-        @endforeach
+
+
         @endif
+
+
+        @endfor
+
+        @endif
+
     </div>
+    <div class="container myContainer">
+        <div class="row titlE"><strong>New Upcomming Titles</strong> </div>
 
-</div>
-<div class="col-4 border-l-r-b">
+        @if(count($newTitles)<=0 ||$newTitles==null) No Upcomming Titles @else @for ($i=0; $i < count($newTitles); $i++) <div class="row">
 
-    @if (session()->has('userInfo'))
-    {{-- <div>userstats</div> --}}
-    @else
-    @endif
-    <div class="container myContainer" style="">
-        <div class="row titlE" style=""><strong>Top Titles</strong> </div>
-
-        @if(count($topTitles)<=0 ||$topTitles==null) No Titles @else @for($i=0; $i < count($topTitles); $i++) <div class="row">
             <div class="col-md-auto">
-                <a href="{{ route('title',['title' => $topTitles[$i][0]->title_id]) }}">
-                    <img class="img-fluid img-thumbnail" style="max-width: 70px" src="{{ $topTitles[$i][0]->image }}" alt="img" onerror="this.onerror=null;this.src='{{URL::asset('/No-Image-Placeholder.svg.png')}}'">
+                <a href="{{ route('title',['title' => $newTitles[$i]->title_id]) }}">
+                    <img class="img-fluid img-thumbnail" style="max-width: 70px" src="{{ $newTitles[$i]->image }}" alt="img" onerror="this.onerror=null;this.src='{{URL::asset('/No-Image-Placeholder.svg.png')}}'">
                 </a>
             </div>
             <div class="col">
                 <div>
-                    <a href="{{ route('title',['title' => $topTitles[$i][0]->title_id]) }}">
-                        {{ $topTitles[$i][0]->titlename }}
-                    </a>
-                </div>
-                <div><small>Aired: {{ $topTitles[$i][0]->startdate==null?"N/A":$topTitles[$i][0]->startdate }}</small></div>
+                    <a href="{{ route('title',['title' => $newTitles[$i]->title_id]) }}">{{ $newTitles[$i]->titlename }}</a></div>
 
-                <div><small>Members: {{ $topTitles[$i][0]->members }}</small></div>
-                <div><small>Rating: {{ $topTitles[$i][0]->avrage_rating==null?"N/A":round($topTitles[$i][0]->avrage_rating,2) }}</small></div>
+
+                <div><small>To Be Aired: {{ $newTitles[$i]->startdate }}</small></div>
+
+
             </div>
     </div>
-    @if(!$i==count($topTitles)-1)
+    @if(!$i==count($newTitles)-1)
+
 
     <hr>
 
-
     @endif
+
+
+
 
 
     @endfor
-
     @endif
-
-</div>
-<div class="container myContainer">
-    <div class="row titlE"><strong>New Upcomming Titles</strong> </div>
-
-    @if(count($newTitles)<=0 ||$newTitles==null) No Upcomming Titles @else @for ($i=0; $i < count($newTitles); $i++) <div class="row">
-
-        <div class="col-md-auto">
-            <a href="{{ route('title',['title' => $newTitles[$i]->title_id]) }}">
-
-
-                <img class="img-fluid img-thumbnail" style="max-width: 70px" src="{{ $newTitles[$i]->image }}" alt="img" onerror="this.onerror=null;this.src='{{URL::asset('/No-Image-Placeholder.svg.png')}}'">
-            </a>
-        </div>
-        <div class="col">
-            <div>
-                <a href="{{ route('title',['title' => $newTitles[$i]->title_id]) }}">{{ $newTitles[$i]->titlename }}</a></div>
-
-
-            <div><small>To Be Aired: {{ $newTitles[$i]->startdate }}</small></div>
-
-
-        </div>
-</div>
-@if(!$i==count($newTitles)-1)
-
-
-<hr>
-
-@endif
-
-
-
-
-
-@endfor
-@endif
 
 
 </div>

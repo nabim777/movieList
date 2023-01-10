@@ -754,8 +754,6 @@ $home='active';
                     const toast = new bootstrap.Toast(toastLiveExample)
                     toast.show()
                     document.getElementById('btn-container').classList.remove("bluryUnclick");
-
-
                 }
             , });
         }
@@ -795,10 +793,6 @@ $home='active';
         }
     }
     $('document').ready(() => {
-        document.getElementById('btn-container').classList.remove("noPointer");
-
-
-
         userInfo = "{{ $userTitelDetail }}";
         if (userInfo != '[]' && userInfo != '' && userInfo != null) {
             userInfo = userInfo.replace(/&quot;/g, '\"');
@@ -811,6 +805,8 @@ $home='active';
                 document.getElementById('addToFaviourite').innerText = "Remove from Favioutite";
             }
         } else {
+            document.getElementById('btn-container').classList.remove("noPointer");
+
 
         }
         if ("{{ Session::has('userInfo') }}") {
