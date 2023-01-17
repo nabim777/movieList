@@ -42,13 +42,16 @@ use function Psy\sh;
 // });
 
 
+// welcome page
 Route::get('/', [HomeController::class, 'show'])->name('/');
 
 
 
-Route::get('/oauth', function () {
-    return view('oauth');
-})->name('review');
+// Route::get('/oauth', function () {
+//     return view('oauth');
+// })->name('review');
+
+
 Route::get('/top', [TopPageController::class, 'topRating'])->name('top');
 Route::get('/favorite', [TopPageController::class, 'topFavorited'])->name('favorite');
 Route::get('/popular', [TopPageController::class, 'topMembers'])->name('popular');
@@ -319,6 +322,6 @@ Route::group(['middleware' => ['AuthCheck']], function () {
 
 
 
-Route::get('/confirmverifyEmail/{token}/{email}', [AuthController::class, 'confirmverifyEmail'])->name('confirmverifyEmail');
+// Route::get('/confirmverifyEmail/{token}/{email}', [AuthController::class, 'confirmverifyEmail'])->name('confirmverifyEmail');
 // Route::post('/verifyEmail', [AuthController::class, 'verifyEmail'])->name('verifyEmail');
 // Route::get('/dataentry', [dataentry::class, 'index']);
