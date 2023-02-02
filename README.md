@@ -24,7 +24,7 @@ Go to the project directory
   cd my_movie_list_live
 ```
 
-Create Enviroment file
+Create Enviroment file.
 
 ```bash 
 cp .env.example .env 
