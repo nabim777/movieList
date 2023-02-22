@@ -42,11 +42,12 @@
         <ul class="list-inline">
             <li class="list-inline-item"><a href="{{ route('/') }}">Home</a></li>
             {{-- <li class="list-inline-item"><a href="#">Services</a></li> --}}
-            <li class="list-inline-item"><a href="https://github.com/iw2d-rn/my_movie_list_live">Githib</a></li>
+            <li class="list-inline-item"><a href="https://github.com/iw2d-rn/my_movie_list_live">Github</a></li>
 
             {{-- <li class="list-inline-item"><a href="#">Terms</a></li> --}}
             {{-- <li class="list-inline-item"><a href="#">Privacy Policy</a></li> --}}
         </ul>
-        <p class="copyright">My Movie List © 2023</p>
+        <p class="copyright">My Movie List © <?php echo date('Y'); ?> </p>
+
     </footer>
 </div>
