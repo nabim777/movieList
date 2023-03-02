@@ -6,7 +6,7 @@
 A Web application to record your movies,reviews and rating.
 ## Live Demo
 
-[Try It](https://mymovielists.up.railway.app/)
+[Try It.](https://mymovielists.up.railway.app/)
 
 
 
