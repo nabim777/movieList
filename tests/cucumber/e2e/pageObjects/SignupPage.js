@@ -4,12 +4,12 @@ class SignupPage {
     constructor() {
         //this.signupUrl = 'http://localhost:8000/signup'
         this.signupUrl = process.env.APP_URL + "signup"
-        this.dateSelector = '#validationDefault03'
+        this.dateSelector = '//input[@name="dob"]'
         this.submitSelector = "//button[@class='btn btn-primary']"
         this.sucessSelector = "//div[@class='alert alert-info']"
         this.usernameSelector = '//input[@id="validationDefault01"]';
         this.emailSelector = '#validationDefault02'
-        this.passwordSelector = '#validationDefault011'
+        this.passwordSelector = '//input[@name="password"]'
         this.confirmPasswordSelector = '#validationDefault003'
     }
 
