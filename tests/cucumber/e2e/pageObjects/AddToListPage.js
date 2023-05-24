@@ -6,7 +6,6 @@ class AddToListPage {
         this.searchButtonSelector = '//button[@class="btn btn-outline-light m-1"]'
         this.addToListSelector = "#titleaddBtn"
         this.listSelector = "//a[contains(text(),'%s')]"
-        //this.movieTitleSelector = `//div[@class="col-md-auto text-center border-l-b"]/h1`
         this.movieStatusSelector = `#exampleFormControlSelect11`
         this.dropDownProfileSelector = `//a[@class="nav-link dropdown-toggle text-primary"]`
         this.movieListButtonSelector = `//li/a[contains(text(),'Movie List')]`
@@ -55,7 +54,6 @@ class AddToListPage {
     }
 
     async goToCompletedList(){
-        //await page.getByRole('tab', { name: 'Completed' }).click();
         await page.click(this.completedListSelector)
     }
 

@@ -18,11 +18,8 @@ Feature: add to list
 
     Scenario Outline: edit the add to list
         Given the user has added the movie "Jhola" to the list
-        And the user has redirect to movie list page
-        And the user choosed movie "Jhola"
-        When user clicks on movie status
-        And user chooses completed
-        Then the user should see the movie "Jhola" in the completed list
+        When the user updates the movie status to "Completed"
+        Then the user should see the movie "Jhola" in the completed movie list tab
 
 
 

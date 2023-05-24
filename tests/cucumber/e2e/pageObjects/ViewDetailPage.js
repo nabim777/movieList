@@ -12,6 +12,7 @@ class ViewDetailPage {
         this.movieNameSelector = '//div[@class="title"]/h1'
         this.filmTitle = "//a[normalize-space(text())='%s']"
         this.movieTitleSelector = `//div[@class="title"]//h1`
+        this.movieStatusBtnSelector = '#myDropdown'
     }
 
     async selectMovie(movieName) {
