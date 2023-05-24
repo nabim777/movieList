@@ -31,11 +31,10 @@ Then('user should redirect to the homepage', async function () {
 
 
 Then('user should see the error message {string}', async function (errorMessage) {
-  //const txt = await page.innerText(errorMessageSelector)
   const actualErrorMessage = await loginPage.getErrorMessage()
   assert.equal(
     actualErrorMessage.trim(),
     errorMessage,
-    `Expected message to be "${errorMessage}" but receive "${actualErrorMessage}"`
+    `Expected error message to be "${errorMessage}" but receive "${actualErrorMessage}"`
   )
 });
